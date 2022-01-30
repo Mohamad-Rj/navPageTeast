@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LASTCONTACT</string>
+    <string name="all_cantacts">All Cantacts</string>
+    <string name="seventy1">70</string>
+    <string name="seventy">70</string>
+    <string name="log_in">Log in</string>
+    <string name="psssword">Psssword</string>
+    <string name="email_adress">Email Adress</string>
+    <string name="sing_in">Sing in</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="home_page">home page</string>
+    <string name="next">next</string>
+    <string name="save_your_contacts_for_ever">save your contacts for ever</string>
+    <string name="sing_up">Sing up</string>
+    <string name="don_t_have_an_account">don\'t have an account?</string>
+</resources>
