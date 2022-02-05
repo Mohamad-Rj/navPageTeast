@@ -8,6 +8,13 @@ class main_activity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+
+        val contacts = Contact().getContactList(this)
+
+        
+
+
     }
 
 }

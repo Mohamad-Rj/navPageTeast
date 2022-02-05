@@ -7,29 +7,14 @@
     android:background="@drawable/home_color"
     tools:context=".MainActivity">
 
-
-    <TextView
-        android:id="@+id/textview1"
-        android:layout_width="109dp"
-        android:layout_height="29dp"
-        android:gravity="center"
-        android:text="@string/all_cantacts"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="@id/progressBar"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="@id/progressBar"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintVertical_bias="0.382"
-        tools:ignore="MissingConstraints" />
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="294dp"
-        android:layout_height="302dp"
-        android:indeterminateOnly="false"
+        android:layout_width="300dp"
+        android:layout_height="320dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="60dp"
         android:progress="60"
         android:progressDrawable="@drawable/loding"
         android:rotation="50"
@@ -41,47 +26,36 @@
         app:layout_constraintVertical_bias="0.319"
         tools:ignore="MissingConstraints" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="13dp"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelinedown"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="715dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineleft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="9dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="0dp" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guidelineRight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_begin="404dp" />
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="109dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:text="@string/all_cantacts"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintEnd_toEndOf="@id/progressBar"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@id/progressBar"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintVertical_bias="0.382"
+        tools:ignore="MissingConstraints" />
 
 
     <TextView
@@ -89,47 +63,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
         android:text="@string/seventy"
         android:textSize="35sp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar"
         tools:ignore="MissingConstraints" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
-        android:layout_width="110dp"
-        android:layout_height="25dp"
-        android:background="@drawable/custom_button"
-        android:text="back up"
-        app:layout_constraintBottom_toTopOf="@id/button3"
-        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toStartOf="@id/guidelineleft"
-        app:layout_constraintTop_toBottomOf="@id/button1"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button3"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:background="@drawable/circle"
-        android:text="Restore"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/guidelinedown"
-        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="@id/guidelineleft"
-        app:layout_constraintTop_toBottomOf="@id/button2"
-        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button"
         android:layout_width="110dp"
         android:layout_height="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/custom_button"
-        android:text="excel"
+        android:text="@string/excel"
+        android:textSize="14sp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toStartOf="@+id/button1"
         app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="@+id/guidelineleft"
@@ -141,13 +95,115 @@
         android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginEnd="20dp"
         android:background="@drawable/custom_button"
-        android:text="pdf"
+        android:text="@string/pdf"
+        android:textStyle="normal"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintStart_toEndOf="@id/button"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
         tools:ignore="MissingConstraints" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button2"
+        android:layout_width="110dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/back_up"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/button3"
+        app:layout_constraintEnd_toStartOf="@id/guidelineRight"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="@id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@id/button1"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button3"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/circle"
+        android:text="@string/restore"
+        android:textStyle="normal"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/guidelinedown"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@id/button2"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="13dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelinedown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="715dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="9dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="404dp" />
+
+    <TextView
+        android:layout_width="85dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="user name "
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+        app:layout_constraintTop_toTopOf="@+id/guidelineup"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/backB"
+        android:layout_width="52dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:padding="16dp"
+        android:src="@drawable/ic_baseline_menu_24"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintTop_toTopOf="@+id/guidelineup"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

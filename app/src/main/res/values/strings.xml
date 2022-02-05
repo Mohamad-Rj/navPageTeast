@@ -14,4 +14,8 @@
     <string name="save_your_contacts_for_ever">save your contacts for ever</string>
     <string name="sing_up">Sing up</string>
     <string name="don_t_have_an_account">don\'t have an account?</string>
+    <string name="back_up">back up</string>
+    <string name="excel">excel</string>
+    <string name="pdf">pdf</string>
+    <string name="restore">Restore</string>
 </resources>
