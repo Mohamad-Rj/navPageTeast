@@ -18,4 +18,5 @@
     <string name="excel">excel</string>
     <string name="pdf">pdf</string>
     <string name="restore">Restore</string>
+    <string name="user_name">user name</string>
 </resources>
