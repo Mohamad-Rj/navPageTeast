@@ -11,7 +11,7 @@ public class splash_page : AppCompatActivity() {
         setContentView(R.layout.splash_page)
 
         Handler().postDelayed({
-        val intent = Intent(this,MainActivity::class.java )
+        val intent = Intent(this,main_activity2::class.java )
             startActivity(intent )
         }, 2000)
     }

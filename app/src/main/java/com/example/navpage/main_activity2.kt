@@ -21,24 +21,17 @@ class main_activity2 : AppCompatActivity() {
 
         val button =findViewById(R.id.button2) as Button
         button.setOnClickListener{
-
-
             val cursor: Cursor = managedQuery(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
             null,
             null,
             null,
             null
-
         )
-
             val count: Int = cursor.getCount()
             println(count)
             Toast.makeText(this,count.toString(),Toast.LENGTH_LONG).show()
             //print(contacts)
         }
-
-
     }
-
 }

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/home_color"
-    tools:context=".MainActivity">
+    tools:context=".main_activity2">
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -20,12 +21,11 @@
         android:rotation="50"
         app:layout_constraintBottom_toTopOf="@id/guidelinedown"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toStartOf="@id/guidelineleft"
         app:layout_constraintTop_toBottomOf="@id/guidelineup"
-        app:layout_constraintVertical_bias="0.319"
+        app:layout_constraintVertical_bias="0.465"
         tools:ignore="MissingConstraints" />
-
 
     <View
         android:id="@+id/view"
@@ -38,72 +38,86 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="0dp" />
 
+
     <TextView
         android:id="@+id/textview1"
-        android:layout_width="109dp"
-        android:layout_height="29dp"
+        android:layout_width="175dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="88dp"
         android:gravity="center"
-        android:text="@string/all_cantacts"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:text="@string/all_contacts"
         android:textColor="@color/white"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="@id/progressBar"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="@id/progressBar"
-        app:layout_constraintTop_toBottomOf="@id/textView"
-        app:layout_constraintVertical_bias="0.382"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="@+id/guidelineleft"
+        app:layout_constraintTop_toBottomOf="@+id/view"
         tools:ignore="MissingConstraints" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#FFD600"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="50dp"
         android:text="@string/seventy"
-        android:textSize="35sp"
         android:textColor="@color/white"
+        android:textSize="45sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar"
         tools:ignore="MissingConstraints" />
 
-
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/exel_button"
         android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/custom_button"
         android:text="@string/excel"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="normal"
-        app:layout_constraintEnd_toStartOf="@+id/button1"
+        app:layout_constraintEnd_toStartOf="@+id/pdf_button"
         app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="@+id/guidelineleft"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button1"
+        android:id="@+id/pdf_button"
         android:layout_width="110dp"
         android:layout_height="25dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/custom_button"
         android:text="@string/pdf"
-        android:textStyle="normal"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="14sp"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintStart_toEndOf="@id/button"
+        app:layout_constraintStart_toEndOf="@id/exel_button"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints,UnknownId" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
@@ -113,17 +127,19 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/custom_button"
         android:text="@string/back_up"
-        android:textStyle="normal"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/button3"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toTopOf="@id/Restore_button"
         app:layout_constraintEnd_toStartOf="@id/guidelineRight"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="@id/guidelineleft"
-        app:layout_constraintTop_toBottomOf="@id/button1"
+        app:layout_constraintTop_toBottomOf="@id/pdf_button"
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button3"
+        android:id="@+id/Restore_button"
         android:layout_width="65dp"
         android:layout_height="65dp"
         android:layout_marginStart="50dp"
@@ -132,8 +148,10 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/circle"
         android:text="@string/restore"
-        android:textStyle="normal"
+        android:textAllCaps="false"
+        android:textColor="#3E3C3C"
         android:textSize="14sp"
+        android:textStyle="normal"
         app:layout_constraintBottom_toTopOf="@id/guidelinedown"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintHorizontal_bias="0.495"
@@ -186,7 +204,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:text="@string/user_name"
-        android:textColor="@color/white"
+        android:textColor="#B1ACAC"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guidelineleft"

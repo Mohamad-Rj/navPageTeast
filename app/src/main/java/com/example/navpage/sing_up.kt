@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.fragment_2end.*
 
 class sing_up  : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
