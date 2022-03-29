@@ -11,16 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import java.io.File
 
 class Restore  : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main2)
 
-        val button = findViewById<Button>(R.id.Restore_button)
-
-        button.setOnClickListener{
-            gg()
-        }
-    }
     fun gg(){
         val intent = Intent()
         val mime = MimeTypeMap.getSingleton()
