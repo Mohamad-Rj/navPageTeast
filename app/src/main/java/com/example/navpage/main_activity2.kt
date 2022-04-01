@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main2.*
 import android.provider.ContactsContract
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -93,5 +95,10 @@ class main_activity2 : AppCompatActivity() {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
 
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        getMenuInflater().inflate(R.menu.menu,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }
