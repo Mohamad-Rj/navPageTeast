@@ -30,7 +30,7 @@
     <View
         android:id="@+id/view"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="70dp"
         android:background="@drawable/navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -46,7 +46,7 @@
         android:layout_marginTop="88dp"
         android:gravity="center"
         android:text="@string/all_contacts"
-        android:textColor="@color/white"
+        android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
@@ -75,7 +75,7 @@
         android:layout_marginTop="136dp"
         android:layout_marginEnd="50dp"
         android:text="@string/seventy"
-        android:textColor="@color/white"
+        android:textColor="#FFFFFF"
         android:textSize="45sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
@@ -204,7 +204,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:text="@string/user_name"
-        android:textColor="#B1ACAC"
+        android:textColor="#FFFFFF"
         android:textSize="17sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guidelineleft"
@@ -212,9 +212,10 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/menu"
+        android:id="@+id/menu_btn"
         android:layout_width="52dp"
         android:layout_height="50dp"
+        android:clickable="true"
         android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackground"
         android:padding="16dp"
