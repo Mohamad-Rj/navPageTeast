@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main2.*
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
@@ -52,6 +53,29 @@ class main_activity2 : AppCompatActivity() {
             }
         }
 
+
+        val menu_btn = findViewById(R.id.menu_btn) as ImageView
+        menu_btn.setOnClickListener{
+            val popupMenu = PopupMenu(this,it)
+            popupMenu.inflate(R.menu.menu_popup)
+
+            try{
+                val fieldMpopup =PopupMenu::class.java.getDeclaredField("mM")
+                fieldMpopup.isAccessible = true
+                val mM = fieldMpopup.get(popupMenu)
+                mM.javaClass
+                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(mM,true)
+
+            }catch (e:Exception) {
+                Log.e("main", "onCreate: ", e)
+            }finally {
+                popupMenu.show()
+            }
+            true
+        }
+
+
         val contatsCountEdit = findViewById(R.id.ContactsCountEdir) as TextView
         val backup_btn = findViewById(R.id.backup_button) as Button
         backup_btn.setOnClickListener {
@@ -64,7 +88,7 @@ class main_activity2 : AppCompatActivity() {
             )
             val count: Int = cursor.getCount()
             println(count)
-            Toast.makeText(this,"Done!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Done!", Toast.LENGTH_LONG).show()
             //print(contacts)
             contatsCountEdit.setText(count.toString())
         }
@@ -93,23 +117,7 @@ class main_activity2 : AppCompatActivity() {
 
         }
     }
-/*
-   private fun popupMenu(){
-
-       val popupMenu = PopupMenu(applicationContext,menu_btn)
-       popupMenu.inflate(R.menu.menu)
-        popupMenu.setOnMenuItemClickListener {
-            popupMenu()
-            }
-
-*/
-
-        }
 
 
 
-
-   /* override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        getMenuInflater().inflate(R.menu.menu,menu)
-        return super.onCreateOptionsMenu(menu)
-    }*/
+}

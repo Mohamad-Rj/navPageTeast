@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<item  android:title="              Log out               "
+    android:id="@+id/menu_logout"
+    android:icon="@drawable/ic_baseline_login_24"
+    android:visible="true"
+    />
+
+    <item android:id="@+id/menu_about_me"
+    android:title="              about us              "
+        android:icon="@drawable/ic_baseline_person_24"/>
+
+</menu>
