@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "443791828044",
+    "project_id": "backup-contact-148ea",
+    "storage_bucket": "backup-contact-148ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:443791828044:android:a6247874614394095800e9",
+        "android_client_info": {
+          "package_name": "com.example.navpage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "443791828044-1f67tc4tjb2clmvin37fuq451u9tlale.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe0tlOa6uv1usCNmFfEVl0EGXa5RK0FJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "443791828044-1f67tc4tjb2clmvin37fuq451u9tlale.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
