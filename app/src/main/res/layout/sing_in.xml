@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.675" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+        android:id="@+id/editTextTextEmailAddress1"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="45dp"
@@ -30,15 +30,15 @@
         android:inputType="textEmailAddress"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/editTextTextPassword4"
+        app:layout_constraintBottom_toTopOf="@id/editTextTextPassword1"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@id/view2"
-        app:layout_constraintTop_toBottomOf="@id/edit_text_name"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_name1"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/edit_text_name"
+        android:id="@+id/edit_text_name1"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="46dp"
@@ -48,7 +48,7 @@
         android:inputType="textPersonName"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/editTextTextEmailAddress2"
+        app:layout_constraintBottom_toTopOf="@id/editTextTextEmailAddress1"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@id/view2"
@@ -56,7 +56,7 @@
         tools:ignore="MissingConstraints,TextFields" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_login"
+        android:id="@+id/button_sing_in"
         android:layout_width="250dp"
         android:layout_height="29dp"
         android:background="@drawable/custom_button_login"
@@ -69,11 +69,11 @@
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@id/view2"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword5"
+        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword"
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/editTextTextPassword4"
+        android:id="@+id/editTextTextPassword1"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="45dp"
@@ -83,11 +83,11 @@
         android:inputType="textPassword"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/editTextTextPassword5"
+        app:layout_constraintBottom_toTopOf="@id/editTextTextPassword"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@id/view2"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress2"
+        app:layout_constraintTop_toBottomOf="@id/editTextTextEmailAddress1"
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -140,7 +140,7 @@
         android:text="@string/sing_in"
         android:textSize="27sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/edit_text_name"
+        app:layout_constraintBottom_toTopOf="@id/edit_text_name1"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@id/view2"
@@ -149,7 +149,7 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
-        android:id="@+id/editTextTextPassword5"
+        android:id="@+id/editTextTextPassword"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="250dp"
         android:layout_height="45dp"
@@ -159,11 +159,11 @@
         android:inputType="textPassword"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/button_login"
+        app:layout_constraintBottom_toTopOf="@id/button_sing_in"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@id/view2"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword4"
+        app:layout_constraintTop_toBottomOf="@id/editTextTextPassword1"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,34 +1,81 @@
 package com.example.navpage
 
-import android.Manifest
-import android.app.Activity
+
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.database.Cursor
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main2.*
-import android.provider.ContactsContract
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.*
-import androidx.core.app.ActivityCompat
-import com.itextpdf.text.Document
-import com.itextpdf.text.Paragraph
-import com.itextpdf.text.pdf.PdfWriter
-import java.io.File
-import java.io.FileOutputStream
-import java.lang.Exception
-import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.Button
+import android.widget.TextView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.auth.User
 
+
+lateinit var displayName: TextView
+lateinit var status: TextView
+lateinit var logout: Button
+lateinit var auth: FirebaseAuth
+lateinit var database: FirebaseDatabase
 
 class main_activity2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+
+
+
+        FirebaseAuth.getInstance().also { it.also { auth = it } }
+        database = FirebaseDatabase.getInstance()
+
+        displayName = findViewById(R.id.user_name) as TextView
+        status = findViewById(R.id.user_name) as TextView
+        logout = findViewById(R.id.menu_logout) as Button
+
+        logout.setOnClickListener() {
+            auth.signOut()
+            val intent = Intent(this, sing_in::class.java)
+            startActivity(intent)
+            finish()
+        }
+        isLogin()
+    }
+    private fun isLogin() {
+        val intent = Intent(this, sing_in::class.java)
+
+        auth.currentUser?.uid?.let { loadData(it) } ?: startActivity(intent)
+    }
+
+    private fun loadData(userId: String) {
+        val dataListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    var user: User = dataSnapshot.getValue(User::class.java)
+                    displayName.text = user.displayName
+                    status.text = user.status
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                //
+            }
+        }
+        database.reference.child("user")
+            .child(userId).addListenerForSingleValueEvent(dataListener)
+    }
+}
+
+/*
+    }
+
+
+        data class User(val displayName: String="", val status: String="")
 
         val pdf_btn = findViewById(R.id.pdf_button) as Button
         pdf_btn.setOnClickListener {
@@ -118,6 +165,8 @@ class main_activity2 : AppCompatActivity() {
         }
     }
 
-
-
 }
+
+
+*/
+
