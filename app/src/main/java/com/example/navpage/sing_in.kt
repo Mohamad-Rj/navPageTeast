@@ -42,14 +42,15 @@ class sing_in : AppCompatActivity(){
         password = findViewById(R.id.editTextTextPassword1) as EditText
         registerButton = findViewById(R.id.button_sing_in) as Button
 
+
         registerButton.setOnClickListener(){
             auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).
             addOnCompleteListener { task: Task<AuthResult> ->
                 if (task.isSuccessful){
                     val userId = auth.currentUser?.uid
                     val registerRef = userId?.let { it1 -> dbRef.child("user").child(it1) }
-                    val user = User(displayName.text.toString(), status.text.toString())
-                    registerRef.setValue(user).addOnSuccessListener(){
+                    val user = User(displayName.text.toString())
+                    registerRef!!.setValue(user).addOnSuccessListener(){
                         val intent = Intent(this, sing_up::class.java)
                         startActivity(intent)
                         finish()

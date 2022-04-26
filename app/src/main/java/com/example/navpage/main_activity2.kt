@@ -10,20 +10,26 @@ import java.util.*
 import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.auth.User
+import com.google.firebase.ktx.Firebase
 
-
-lateinit var displayName: TextView
-lateinit var status: TextView
-lateinit var logout: Button
-lateinit var auth: FirebaseAuth
-lateinit var database: FirebaseDatabase
 
 class main_activity2 : AppCompatActivity() {
+
+    lateinit var displayName: TextView
+    lateinit var status: TextView
+    lateinit var logout: Button
+    lateinit var auth: FirebaseAuth
+    lateinit var database: FirebaseDatabase
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
@@ -35,7 +41,7 @@ class main_activity2 : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
 
         displayName = findViewById(R.id.user_name) as TextView
-        status = findViewById(R.id.user_name) as TextView
+      //  status = findViewById(R.id.user_name) as TextView
         logout = findViewById(R.id.menu_logout) as Button
 
         logout.setOnClickListener() {
@@ -56,9 +62,12 @@ class main_activity2 : AppCompatActivity() {
         val dataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    var user: User = dataSnapshot.getValue(User::class.java)
-                    displayName.text = user.displayName
-                    status.text = user.status
+                  //  var user: User = dataSnapshot.getValue(User::class.java)
+                    val user = Firebase.auth.currentUser
+                    //if (user != null ) {}
+
+                    displayName.text = user!!.displayName
+                   // status.text = user.status
                 }
             }
 

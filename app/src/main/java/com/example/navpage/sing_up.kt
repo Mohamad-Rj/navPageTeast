@@ -13,18 +13,19 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlin.math.sin
 
 
-lateinit var auth: FirebaseAuth
-lateinit var loginButton: Button
-@SuppressLint("StaticFieldLeak")
-lateinit var email: EditText
-lateinit var password: EditText
-lateinit var registerButtton: Button
 
 
 class sing_up  : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sing_up_page)
+
+        lateinit var auth: FirebaseAuth
+        lateinit var loginButton: Button
+        @SuppressLint("StaticFieldLeak")
+        lateinit var email: EditText
+        lateinit var password: EditText
+        lateinit var registerButtton: Button
 
         val singIn = findViewById<TextView>(R.id.sing_up_textview)
         singIn.setOnClickListener {
