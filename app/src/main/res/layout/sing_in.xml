@@ -62,7 +62,7 @@
         android:background="@drawable/custom_button_login"
         android:text="@string/sing_in"
         android:textAllCaps="false"
-        android:textColor="#FFF9F9"
+        android:textColor="#FDD835"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/view2"

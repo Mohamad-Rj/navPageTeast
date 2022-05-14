@@ -1,9 +1,12 @@
 package com.example.navpage
 
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main2.*
 import android.widget.*
 import java.util.*
@@ -26,8 +29,37 @@ class main_activity2 : AppCompatActivity() {
     lateinit var logout: Button
     lateinit var auth: FirebaseAuth
     lateinit var database: FirebaseDatabase
+    lateinit var menu:ImageView
 
 
+    @SuppressLint("ResourceType")
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.id.menu_btn,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId){
+         //   R.id.about -> Toast.makeText(this,"About Selected",Toast.LENGTH_SHORT).show()
+          //  R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
+
+        }
+
+        if (item.itemId==R.id.menu_logout){
+            auth.signOut()
+            val intent = Intent(this, sing_in::class.java)
+            startActivity(intent)
+            finish()
+
+
+
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
+}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,21 +67,20 @@ class main_activity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
 
 
-
-
         FirebaseAuth.getInstance().also { it.also { auth = it } }
         database = FirebaseDatabase.getInstance()
 
         displayName = findViewById(R.id.user_name) as TextView
       //  status = findViewById(R.id.user_name) as TextView
-        logout = findViewById(R.id.menu_logout) as Button
 
-        logout.setOnClickListener() {
-            auth.signOut()
-            val intent = Intent(this, sing_in::class.java)
-            startActivity(intent)
-            finish()
-        }
+      //  logout = findViewById(R.id.menu_logout) as Button
+
+//        logout.setOnClickListener() {
+//            auth.signOut()
+//            val intent = Intent(this, sing_in::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
         isLogin()
     }
     private fun isLogin() {
