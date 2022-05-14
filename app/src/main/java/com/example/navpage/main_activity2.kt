@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main2.*
@@ -26,40 +27,9 @@ class main_activity2 : AppCompatActivity() {
 
     lateinit var displayName: TextView
     lateinit var status: TextView
-    lateinit var logout: Button
     lateinit var auth: FirebaseAuth
     lateinit var database: FirebaseDatabase
-    lateinit var menu:ImageView
 
-
-    @SuppressLint("ResourceType")
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.id.menu_btn,menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId){
-         //   R.id.about -> Toast.makeText(this,"About Selected",Toast.LENGTH_SHORT).show()
-          //  R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
-
-        }
-
-        if (item.itemId==R.id.menu_logout){
-            auth.signOut()
-            val intent = Intent(this, sing_in::class.java)
-            startActivity(intent)
-            finish()
-
-
-
-
-
-        }
-
-
-        return super.onOptionsItemSelected(item)
-}
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,7 +51,38 @@ class main_activity2 : AppCompatActivity() {
 //            startActivity(intent)
 //            finish()
 //        }
-        isLogin()
+      //  isLogin()
+    }
+
+    @SuppressLint("ResourceType")
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_popup,menu)
+        return super.onCreateOptionsMenu(menu)
+        Log.d("aaa", "onCreateOptionsMenu: ")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d("aaa", "onOptionsItemSelected: ")
+        when (item.itemId){
+            //   R.id.about -> Toast.makeText(this,"About Selected",Toast.LENGTH_SHORT).show()
+            //  R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
+
+        }
+
+        if (item.itemId==R.id.menu_logout){
+            auth.signOut()
+            val intent = Intent(this, sing_in::class.java)
+            startActivity(intent)
+            finish()
+
+
+
+
+
+        }
+
+
+        return super.onOptionsItemSelected(item)
     }
     private fun isLogin() {
         val intent = Intent(this, sing_in::class.java)
