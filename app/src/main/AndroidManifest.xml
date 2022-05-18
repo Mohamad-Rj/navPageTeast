@@ -16,9 +16,10 @@
         android:label=""
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/Theme.NavPage">
         <activity
-            android:name=".main_activity2"
+            android:name=".sing_up"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,8 +28,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.example.navpage.main_activity2" />
         <activity android:name="com.example.navpage.sing_in" />
-        <activity android:name="com.example.navpage.sing_up" />
         <activity android:name="com.example.navpage.splash_page" />
     </application>
 

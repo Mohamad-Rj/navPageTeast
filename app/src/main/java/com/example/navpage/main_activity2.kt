@@ -8,10 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import kotlinx.android.synthetic.main.activity_main2.*
 import android.widget.*
-import java.util.*
-import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -19,8 +16,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
+import java.lang.Exception
 
 
 class main_activity2 : AppCompatActivity() {
@@ -36,6 +33,26 @@ class main_activity2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
+        val menu_btn = findViewById(R.id.menu_btn) as ImageView
+        menu_btn.setOnClickListener{
+            val popupMenu = PopupMenu(this,it)
+            popupMenu.inflate(R.menu.menu_popup)
+
+            try{
+                val fieldMpopup =PopupMenu::class.java.getDeclaredField("mM")
+                fieldMpopup.isAccessible = true
+                val mM = fieldMpopup.get(popupMenu)
+                mM.javaClass
+                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
+                    .invoke(mM,true)
+
+            }catch (e: Exception) {
+                Log.e("main", "onCreate: ", e)
+            }finally {
+                popupMenu.show()
+            }
+            true
+        }
 
         FirebaseAuth.getInstance().also { it.also { auth = it } }
         database = FirebaseDatabase.getInstance()
@@ -71,21 +88,20 @@ class main_activity2 : AppCompatActivity() {
 
         if (item.itemId==R.id.menu_logout){
             auth.signOut()
-            val intent = Intent(this, sing_in::class.java)
+            val intent = Intent(this, sing_up::class.java)
             startActivity(intent)
             finish()
-
-
-
-
-
         }
-
 
         return super.onOptionsItemSelected(item)
     }
+
+
+
+
+
     private fun isLogin() {
-        val intent = Intent(this, sing_in::class.java)
+        val intent = Intent(this, sing_up::class.java)
 
         auth.currentUser?.uid?.let { loadData(it) } ?: startActivity(intent)
     }
@@ -140,29 +156,6 @@ class main_activity2 : AppCompatActivity() {
                 savePdf("amir")
             }
         }
-
-
-        val menu_btn = findViewById(R.id.menu_btn) as ImageView
-        menu_btn.setOnClickListener{
-            val popupMenu = PopupMenu(this,it)
-            popupMenu.inflate(R.menu.menu_popup)
-
-            try{
-                val fieldMpopup =PopupMenu::class.java.getDeclaredField("mM")
-                fieldMpopup.isAccessible = true
-                val mM = fieldMpopup.get(popupMenu)
-                mM.javaClass
-                    .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-                    .invoke(mM,true)
-
-            }catch (e:Exception) {
-                Log.e("main", "onCreate: ", e)
-            }finally {
-                popupMenu.show()
-            }
-            true
-        }
-
 
         val contatsCountEdit = findViewById(R.id.ContactsCountEdir) as TextView
         val backup_btn = findViewById(R.id.backup_button) as Button

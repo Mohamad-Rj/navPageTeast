@@ -56,7 +56,7 @@
         tools:ignore="MissingConstraints,TextFields" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_sing_in"
+        android:id="@+id/button_sing_up"
         android:layout_width="250dp"
         android:layout_height="29dp"
         android:background="@drawable/custom_button_login"
@@ -158,7 +158,7 @@
         android:inputType="textPassword"
         android:textSize="17sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/button_sing_in"
+        app:layout_constraintBottom_toTopOf="@id/button_sing_up"
         app:layout_constraintEnd_toEndOf="@id/view2"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="@id/view2"

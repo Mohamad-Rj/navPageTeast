@@ -6,13 +6,13 @@
     <string name="log_in">Log in</string>
     <string name="psssword">Psssword</string>
     <string name="email_adress">Email Adress</string>
-    <string name="sing_in">Sing in</string>
+    <string name="sing_in">Sing up</string>
     <string name="password">Password</string>
     <string name="name">Name</string>
     <string name="home_page">home page</string>
     <string name="next">next</string>
     <string name="save_your_contacts_for_ever">save your contacts for ever</string>
-    <string name="sing_up">Sing up</string>
+    <string name="sing_up">Sing in</string>
     <string name="don_t_have_an_account">don\'t have an account?</string>
     <string name="back_up">back up</string>
     <string name="excel">excel</string>
