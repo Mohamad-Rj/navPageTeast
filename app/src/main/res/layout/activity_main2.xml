@@ -24,7 +24,7 @@
         app:layout_constraintHorizontal_bias="0.613"
         app:layout_constraintStart_toStartOf="@id/guidelineleft"
         app:layout_constraintTop_toBottomOf="@id/guidelineup"
-        app:layout_constraintVertical_bias="0.465"
+        app:layout_constraintVertical_bias="0.404"
         tools:ignore="MissingConstraints" />
 
     <View
@@ -43,7 +43,7 @@
         android:id="@+id/textview1"
         android:layout_width="175dp"
         android:layout_height="49dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="68dp"
         android:gravity="center"
         android:text="@string/all_contacts"
         android:textColor="#FFFFFF"
@@ -89,7 +89,7 @@
         android:layout_width="110dp"
         android:layout_height="25dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/custom_button"
         android:text="@string/excel"
         android:textAllCaps="false"
@@ -106,7 +106,7 @@
         android:id="@+id/pdf_button"
         android:layout_width="110dp"
         android:layout_height="25dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/custom_button"
         android:text="@string/pdf"

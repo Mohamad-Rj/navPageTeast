@@ -1,5 +1,6 @@
 package com.example.navpage
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.ContactsContract
 import android.util.Log
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 class Contact : AppCompatActivity() {
 
 
+     @SuppressLint("Range")
      fun getContactList(context: Context) {
         val cr = contentResolver
 

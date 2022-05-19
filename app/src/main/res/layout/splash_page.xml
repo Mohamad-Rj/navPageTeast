@@ -5,6 +5,22 @@
     android:background="@drawable/splash_color"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".splash_page">
+    tools:context=".splash_page"
+    >
+
+    <TextView
+        android:layout_width="295dp"
+        android:layout_height="45dp"
+        android:text="back up contacts"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

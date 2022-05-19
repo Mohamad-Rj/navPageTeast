@@ -28,27 +28,26 @@ class main_activity2 : AppCompatActivity() {
     lateinit var database: FirebaseDatabase
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
         val menu_btn = findViewById(R.id.menu_btn) as ImageView
-        menu_btn.setOnClickListener{
-            val popupMenu = PopupMenu(this,it)
+        menu_btn.setOnClickListener {
+            val popupMenu = PopupMenu(this, it)
             popupMenu.inflate(R.menu.menu_popup)
 
-            try{
-                val fieldMpopup =PopupMenu::class.java.getDeclaredField("mM")
+            try {
+                val fieldMpopup = PopupMenu::class.java.getDeclaredField("mM")
                 fieldMpopup.isAccessible = true
                 val mM = fieldMpopup.get(popupMenu)
                 mM.javaClass
                     .getDeclaredMethod("setForceShowIcon", Boolean::class.java)
-                    .invoke(mM,true)
+                    .invoke(mM, true)
 
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.e("main", "onCreate: ", e)
-            }finally {
+            } finally {
                 popupMenu.show()
             }
             true
@@ -58,9 +57,9 @@ class main_activity2 : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
 
         displayName = findViewById(R.id.user_name) as TextView
-      //  status = findViewById(R.id.user_name) as TextView
+        //  status = findViewById(R.id.user_name) as TextView
 
-      //  logout = findViewById(R.id.menu_logout) as Button
+        //  logout = findViewById(R.id.menu_logout) as Button
 
 //        logout.setOnClickListener() {
 //            auth.signOut()
@@ -68,25 +67,25 @@ class main_activity2 : AppCompatActivity() {
 //            startActivity(intent)
 //            finish()
 //        }
-      //  isLogin()
+        //  isLogin()
     }
 
     @SuppressLint("ResourceType")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_popup,menu)
+        menuInflater.inflate(R.menu.menu_popup, menu)
         return super.onCreateOptionsMenu(menu)
         Log.d("aaa", "onCreateOptionsMenu: ")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.d("aaa", "onOptionsItemSelected: ")
-        when (item.itemId){
+        when (item.itemId) {
             //   R.id.about -> Toast.makeText(this,"About Selected",Toast.LENGTH_SHORT).show()
             //  R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
 
         }
 
-        if (item.itemId==R.id.menu_logout){
+        if (item.itemId == R.id.menu_logout) {
             auth.signOut()
             val intent = Intent(this, sing_up::class.java)
             startActivity(intent)
@@ -95,9 +94,6 @@ class main_activity2 : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
-
-
 
 
     private fun isLogin() {
@@ -110,12 +106,12 @@ class main_activity2 : AppCompatActivity() {
         val dataListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 if (dataSnapshot.exists()) {
-                  //  var user: User = dataSnapshot.getValue(User::class.java)
+                    //  var user: User = dataSnapshot.getValue(User::class.java)
                     val user = Firebase.auth.currentUser
                     //if (user != null ) {}
 
                     displayName.text = user!!.displayName
-                   // status.text = user.status
+                    // status.text = user.status
                 }
             }
 
@@ -195,10 +191,8 @@ class main_activity2 : AppCompatActivity() {
             Toast.makeText(this, "mf", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-
         }
     }
-
 }
 
 

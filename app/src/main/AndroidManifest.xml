@@ -19,7 +19,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.NavPage">
         <activity
-            android:name=".sing_up"
+            android:name=".splash_page"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
 
         <activity android:name="com.example.navpage.main_activity2" />
         <activity android:name="com.example.navpage.sing_in" />
-        <activity android:name="com.example.navpage.splash_page" />
+        <activity android:name="com.example.navpage.sing_up" />
     </application>
 
 </manifest>
