@@ -50,7 +50,7 @@ class sing_up : AppCompatActivity(){
                     val userId = auth.currentUser?.uid
                     val registerRef = userId?.let { it1 -> dbRef.child("user").child(it1) }
                     val user = User(displayName.text.toString())
-                    val intent = Intent(this, sing_in::class.java)
+                    val intent = Intent(this, sing_in ::class.java)
                     startActivity(intent)
 //                    registerRef!!.setValue(user).addOnSuccessListener(){
 //

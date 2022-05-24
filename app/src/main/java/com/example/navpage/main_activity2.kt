@@ -8,6 +8,7 @@ import android.database.Cursor
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.ContactsContract
 import android.util.Log
 import android.view.Menu
@@ -65,6 +66,29 @@ class main_activity2 : AppCompatActivity() {
             }
             true
         }
+        val pdf_btn = findViewById(R.id.pdf_button) as Button
+        pdf_btn.setOnClickListener {
+            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+
+                if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        1
+                    )
+                } else {
+                    // pdf().savePdf("amir")
+                    savePdf("amir")
+
+
+                }
+            } else {
+//                    pdf().savePdf("amir")
+                savePdf("amir")
+            }
+
+        }
 
         FirebaseAuth.getInstance().also { it.also { auth = it } }
         database = FirebaseDatabase.getInstance()
@@ -83,7 +107,7 @@ class main_activity2 : AppCompatActivity() {
         //  isLogin()
     }
 
-    @SuppressLint("ResourceType")
+    /*@SuppressLint("ResourceType")
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_popup, menu)
         return super.onCreateOptionsMenu(menu)
@@ -107,7 +131,7 @@ class main_activity2 : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
+*/
 
     private fun isLogin() {
         val intent = Intent(this, sing_up::class.java)
@@ -136,57 +160,18 @@ class main_activity2 : AppCompatActivity() {
             .child(userId).addListenerForSingleValueEvent(dataListener)
 
 
-      //makan 22 bahman zaman meydan azadi3
+
         data class User(val displayName: String="", val status: String="")
 
-        val pdf_btn = findViewById(R.id.pdf_button) as Button
-        pdf_btn.setOnClickListener {
 
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-
-                if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        1
-                    )
-                } else {
-                    // pdf().savePdf("amir")
-                    savePdf("amir")
-
-
-                }
-            } else {
-//                    pdf().savePdf("amir")
-                savePdf("amir")
-            }
-        }
-
-        val contatsCountEdit = findViewById(R.id.ContactsCountEdir) as TextView
-        val backup_btn = findViewById(R.id.backup_button) as Button
-        backup_btn.setOnClickListener {
-            val cursor: Cursor = managedQuery(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-            )
-            val count: Int = cursor.getCount()
-            println(count)
-            Toast.makeText(this, "Done!", Toast.LENGTH_LONG).show()
-            //print(contacts)
-            contatsCountEdit.setText(count.toString())
-        }
     }
 
     fun savePdf(contacts: String) {
 
         val mDoc = Document()
-        val mFileName =
-            SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
+        val mFileName = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
         // val mFilepath = Environment.getDataDirectory().toString()+ "/" +mFileName + "pdf"
-        val path = this.getExternalFilesDir(null)
+        val path = Environment.getExternalStorageDirectory().absolutePath
         val letdir = File(path, "phonebackup")
         letdir.mkdirs()
         val file = File(letdir, "demo.pdf")
@@ -200,6 +185,22 @@ class main_activity2 : AppCompatActivity() {
             Toast.makeText(this, "mf", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+        }
+        val contatsCountEdit = findViewById(R.id.ContactsCountEdir) as TextView
+        val backup_btn = findViewById(R.id.backup_button) as Button
+        backup_btn.setOnClickListener {
+            val cursor: Cursor = managedQuery(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                null,
+                null,
+                null,
+                null
+            )
+            val count: Int = cursor.getCount()
+            println(count)
+
+            //print(contacts)
+            contatsCountEdit.setText(count.toString())
         }
     }
 }
