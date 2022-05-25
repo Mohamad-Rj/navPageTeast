@@ -121,7 +121,6 @@
 
     <TextView
         android:id="@+id/textView2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
@@ -131,13 +130,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress3"
         app:layout_constraintEnd_toEndOf="@+id/view2"
-        app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.179"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="85dp"
-        tools:layout_editor_absoluteY="250dp" />
+        app:layout_constraintVertical_bias="0.173"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView3"

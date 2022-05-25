@@ -38,6 +38,9 @@ class sing_in : AppCompatActivity() {
             startActivity(myIntent)
 
         }
+
+
+
         email = findViewById(R.id.editTextTextEmailAddress3) as EditText
         password = findViewById(R.id.editTextTextPassword3) as EditText
         loginButton = findViewById(R.id.button_login) as Button
@@ -51,22 +54,23 @@ class sing_in : AppCompatActivity() {
                     val intentToMain = Intent(this, main_activity2::class.java)
                     startActivity(intentToMain)
                 }*/
-           val user = Firebase.auth.currentUser!!
+
 
 // Get auth credentials from the user for re-authentication. The example below shows
 // email and password credentials but there are multiple possible providers,
 // such as GoogleAuthProvider or FacebookAuthProvider.
+            val user = Firebase.auth.currentUser!!
             val credential = EmailAuthProvider
                 .getCredential("user@example.com", "password1234")
-
-// Prompt the user to re-provide their sign-in credentials
-
-         user.reauthenticate(credential)
+                   user.reauthenticate(credential)
                 .addOnCompleteListener { Log.d(TAG, "User re-authenticated.") }
 
 
-            val intentToMain = Intent(this, main_activity2::class.java)
-            startActivity(intentToMain)
+
+           val name = intent.getStringExtra("userId")
+            val intent = Intent(this,main_activity2::class.java)
+            intent.putExtra("userId",name)
+            startActivity(intent)
         }
     }
 }

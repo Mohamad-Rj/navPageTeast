@@ -26,6 +26,7 @@ import com.google.firebase.ktx.Firebase
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
+import kotlinx.android.synthetic.main.activity_main2.*
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
@@ -42,9 +43,14 @@ class main_activity2 : AppCompatActivity() {
     lateinit var database: FirebaseDatabase
 
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        displayName = findViewById(R.id.user_name) as TextView
+           // val username2 = findViewById(R.id.user_name) as TextView
+        val username1 = intent.getStringExtra("userId")
+        displayName.setText(username1)
 
         val menu_btn = findViewById(R.id.menu_btn) as ImageView
         menu_btn.setOnClickListener {
@@ -93,7 +99,7 @@ class main_activity2 : AppCompatActivity() {
         FirebaseAuth.getInstance().also { it.also { auth = it } }
         database = FirebaseDatabase.getInstance()
 
-        displayName = findViewById(R.id.user_name) as TextView
+
         //  status = findViewById(R.id.user_name) as TextView
 
         //  logout = findViewById(R.id.menu_logout) as Button
