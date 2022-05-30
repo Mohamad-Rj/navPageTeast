@@ -9,12 +9,14 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.ContactsContract
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,12 +28,14 @@ import com.google.firebase.ktx.Firebase
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
+import kotlinx.android.synthetic.main.activity_main2.*
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.jar.Manifest
+import kotlin.random.Random.Default.nextInt
 
 
 class main_activity2 : AppCompatActivity() {
@@ -40,11 +44,16 @@ class main_activity2 : AppCompatActivity() {
     lateinit var status: TextView
     lateinit var auth: FirebaseAuth
     lateinit var database: FirebaseDatabase
+    var progressStatus = 0
+    var handler = Handler()
 
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+
 
         val menu_btn = findViewById(R.id.menu_btn) as ImageView
         menu_btn.setOnClickListener {
@@ -94,44 +103,53 @@ class main_activity2 : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
 
         displayName = findViewById(R.id.user_name) as TextView
-        //  status = findViewById(R.id.user_name) as TextView
 
-        //  logout = findViewById(R.id.menu_logout) as Button
+        val progress = findViewById(R.id.test) as Button
+        val test_text =findViewById(R.id.test_textview) as TextView
+        val b =""
+        progress.setOnClickListener{
+            progress.isEnabled = false
+            progressBar.progress = 0
+            progressStatus = 0
+            val filesToDownload= 100
+            // set up max value for progress bar
+            progressBar.max = filesToDownload
 
-//        logout.setOnClickListener() {
-//            auth.signOut()
-//            val intent = Intent(this, sing_in::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-        //  isLogin()
-    }
+            Thread(Runnable {
+                while (progressStatus < filesToDownload){
+                    // update progress status
+                    progressStatus +=1
 
-    /*@SuppressLint("ResourceType")
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_popup, menu)
-        return super.onCreateOptionsMenu(menu)
-        Log.d("aaa", "onCreateOptionsMenu: ")
-    }
+                    // sleep the thread for 50 milliseconds
+                    Thread.sleep(50)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("aaa", "onOptionsItemSelected: ")
-        when (item.itemId) {
-            //   R.id.about -> Toast.makeText(this,"About Selected",Toast.LENGTH_SHORT).show()
-            //  R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
+                    // update the progress bar
+                    handler.post {
+                        progressBar.progress = progressStatus
 
+                        // calculate the percentage
+                        var percentage = ((progressStatus.toDouble()
+                                / filesToDownload) * 100).toInt()
+
+                        // update the text view
+                        test_text.text =" $percentage%"
+
+                        if (progressStatus == filesToDownload){
+                            progress.isEnabled = true
+                        }
+                    }
+                }
+
+                progressBar.setProgress(0)
+
+            }).start()
         }
 
-        if (item.itemId == R.id.menu_logout) {
-            auth.signOut()
-            val intent = Intent(this, sing_up::class.java)
-            startActivity(intent)
-            finish()
-        }
+        test_text.setText("$b")
 
-        return super.onOptionsItemSelected(item)
+
     }
-*/
+
 
     private fun isLogin() {
         val intent = Intent(this, sing_up::class.java)
@@ -153,23 +171,21 @@ class main_activity2 : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                //
+
             }
         }
+
         database.reference.child("user")
             .child(userId).addListenerForSingleValueEvent(dataListener)
 
-
-
-        data class User(val displayName: String="", val status: String="")
-
-
+        data class User(val displayName: String = "", val status: String = "")
     }
 
     fun savePdf(contacts: String) {
 
         val mDoc = Document()
-        val mFileName = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
+        val mFileName =
+            SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
         // val mFilepath = Environment.getDataDirectory().toString()+ "/" +mFileName + "pdf"
         val path = Environment.getExternalStorageDirectory().absolutePath
         val letdir = File(path, "phonebackup")
@@ -204,7 +220,6 @@ class main_activity2 : AppCompatActivity() {
         }
     }
 }
-
 
 
 /*
@@ -258,7 +273,7 @@ class main_activity2 : AppCompatActivity() {
 
         val mDoc = Document()
         val mFileName =
-            SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
+        SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
         // val mFilepath = Environment.getDataDirectory().toString()+ "/" +mFileName + "pdf"
         val path = this.getExternalFilesDir(null)
         val letdir = File(path, "phonebackup")
@@ -277,7 +292,36 @@ class main_activity2 : AppCompatActivity() {
         }
     }
 }
-
-
 */
+/*@SuppressLint("ResourceType")
+override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_popup, menu)
+    return super.onCreateOptionsMenu(menu)
+    Log.d("aaa", "onCreateOptionsMenu: ")
+}
+override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    Log.d("aaa", "onOptionsItemSelected: ")
+    when (item.itemId) {
+        //   R.id.about -> Toast.makeText(this,"About Selected",Toast.LENGTH_SHORT).show()
+        //  R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
+    }
+    if (item.itemId == R.id.menu_logout) {
+        auth.signOut()
+        val intent = Intent(this, sing_up::class.java)
+        startActivity(intent)
+        finish()
+    }
+    return super.onOptionsItemSelected(item)
+}
+*/
+//  status = findViewById(R.id.user_name) as TextView
 
+//  logout = findViewById(R.id.menu_logout) as Button
+
+//        logout.setOnClickListener() {
+//            auth.signOut()
+//            val intent = Intent(this, sing_in::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
+//  isLogin()
