@@ -7,7 +7,7 @@
     android:visible="true"
     />
 
-    <item android:id="@+id/menu_about_me"
+    <item android:id="@+id/abot_us"
     android:title="              about us              "
         android:icon="@drawable/ic_baseline_person_24"/>
 

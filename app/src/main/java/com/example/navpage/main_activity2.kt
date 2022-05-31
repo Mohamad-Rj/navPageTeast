@@ -116,10 +116,33 @@ class main_activity2 : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("main", "onCreate: ", e)
             } finally {
+
+
+                popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener { item: MenuItem? ->
+
+                    when (item!!.itemId) {
+                        R.id.menu_logout -> {
+                            val Intent = Intent(this,sing_in::class.java)
+                            startActivity(Intent)
+                            finish()
+                        }
+                        R.id.abot_us-> {
+                            Toast.makeText(this, item.title, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    true
+                })
+
+
+
                 popupMenu.show()
             }
-            true
         }
+
+
+
+
+
         val pdf_btn = findViewById(R.id.pdf_button) as Button
         pdf_btn.setOnClickListener {
             Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show()
