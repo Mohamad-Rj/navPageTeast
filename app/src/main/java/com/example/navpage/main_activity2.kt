@@ -6,16 +6,15 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.ContactsContract
 import android.util.Log
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.*
-import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -28,12 +27,12 @@ import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
 import kotlinx.android.synthetic.main.activity_main2.*
+import org.apache.poi.hssf.usermodel.HSSFWorkbook
+import org.apache.poi.ss.usermodel.Row
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.jar.Manifest
 
 class main_activity2 : AppCompatActivity() {
 
@@ -44,14 +43,32 @@ class main_activity2 : AppCompatActivity() {
     var progressStatus = 0
     var handler = Handler()
 
+    val xlb = HSSFWorkbook()
+    val xls = xlb.createSheet()
+    lateinit var headerRow: Row
+    var row = 0
 
+
+
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
 
+        checkPer()
+       // getcontact_number()
 
-        getcontact_number()
+        //// make a folder
+       // val path = "/storage/emulated/0/ppp"
+        val path = Environment.getExternalStorageDirectory().absolutePath
+        val letdir = File(path, "phonebackup")
+      //  val letdir = File(path, "phonebackup")
+            if (!letdir.exists()) {
+                letdir.mkdirs()
+                Log.d("aaa", "excel")
+            }
 
+        ////
 
         displayName = findViewById(R.id.user_name) as TextView
         // val username2 = findViewById(R.id.user_name) as TextView
@@ -156,13 +173,13 @@ class main_activity2 : AppCompatActivity() {
                     )
                 } else {
                     // pdf().savePdf("amir")
-                    savePdf("amir")
+                    savePdf("amir",letdir)
 
 
                 }
             } else {
 //                    pdf().savePdf("amir")
-                savePdf("amir")
+                savePdf("amir",letdir)
             }
 
         }
@@ -172,115 +189,30 @@ class main_activity2 : AppCompatActivity() {
 
         displayName = findViewById(R.id.user_name) as TextView
 
-        //  status = findViewById(R.id.user_name) as TextView
-
-        //  logout = findViewById(R.id.menu_logout) as Button
-
-//        logout.setOnClickListener() {
-//            auth.signOut()
-//            val intent = Intent(this, sing_in::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
-        //  isLogin()
-
-
-    }
-
-
-    /*@SuppressLint("ResourceType")
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_popup, menu)
-        return super.onCreateOptionsMenu(menu)
-        Log.d("aaa", "onCreateOptionsMenu: ")
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("aaa", "onOptionsItemSelected: ")
-        when (item.itemId) {
-            //   R.id.about -> Toast.makeText(this,"About Selected",Toast.LENGTH_SHORT).show()
-            //  R.id.settings -> Toast.makeText(this,"Settings Selected",Toast.LENGTH_SHORT).show()
-
+        val exelBtn = findViewById(R.id.exel_button)as Button
+        exelBtn.setOnClickListener{
+            val mFileName = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
+            val file = File(letdir, mFileName+".xls")
+            getExcle(file)
         }
 
-        if (item.itemId == R.id.menu_logout) {
-            auth.signOut()
-            val intent = Intent(this, sing_up::class.java)
-            startActivity(intent)
-            finish()
-        }
-
-        return super.onOptionsItemSelected(item)
     }
-*/
-/*
-    }
-        data class User(val displayName: String="", val status: String="")
 
-        val pdf_btn = findViewById(R.id.pdf_button) as Button
-        pdf_btn.setOnClickListener {
-
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-
-                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                        1
-                    )
-                } else {
-                    // pdf().savePdf("amir")
-                    savePdf("amir")
-
-
-                }
-            } else {
-//                    pdf().savePdf("amir")
-                savePdf("amir")
-            }
-        }
-        val contatsCountEdit = findViewById(R.id.ContactsCountEdir) as TextView
-        val backup_btn = findViewById(R.id.backup_button) as Button
-        backup_btn.setOnClickListener {
-            val cursor: Cursor = managedQuery(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun checkPer() {
+        if (checkSelfPermission(android.Manifest.permission.READ_CONTACTS)
+            != PackageManager.PERMISSION_GRANTED ||checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) !=PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.WRITE_CONTACTS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this, arrayOf(android.Manifest.permission.READ_CONTACTS,android.Manifest.permission.WRITE_CONTACTS,android.Manifest.permission.WRITE_EXTERNAL_STORAGE,android.Manifest.permission.READ_EXTERNAL_STORAGE),
+                1
             )
-            val count: Int = cursor.getCount()
-            println(count)
-            Toast.makeText(this, "Done!", Toast.LENGTH_LONG).show()
-            //print(contacts)
-            contatsCountEdit.setText(count.toString())
+        } else {
+            Toast.makeText(this," permission granted !!",Toast.LENGTH_LONG).show()
         }
     }
 
-    fun savePdf(contacts: String) {
-
-        val mDoc = Document()
-        val mFileName =
-            SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
-        // val mFilepath = Environment.getDataDirectory().toString()+ "/" +mFileName + "pdf"
-        val path = this.getExternalFilesDir(null)
-        val letdir = File(path, "phonebackup")
-        letdir.mkdirs()
-        val file = File(letdir, "demo.pdf")
-
-        try {
-            PdfWriter.getInstance(mDoc, FileOutputStream(file))
-            mDoc.open()
-            mDoc.addAuthor("aaaa")
-            mDoc.add(Paragraph(contacts))
-            mDoc.close()
-            Toast.makeText(this, "mf", Toast.LENGTH_LONG).show()
-        } catch (e: Exception) {
-            Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-        }
-    }
-}
-*/
 
     private fun isLogin() {
         val intent = Intent(this, sing_up::class.java)
@@ -315,16 +247,14 @@ class main_activity2 : AppCompatActivity() {
 
     }
 
-    fun savePdf(contacts: String) {
+    fun savePdf(contacts: String , folder : File) {
 
         val mDoc = Document()
         val mFileName =
             SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
         // val mFilepath = Environment.getDataDirectory().toString()+ "/" +mFileName + "pdf"
-        val path = Environment.getExternalStorageDirectory().absolutePath
-        val letdir = File(path, "phonebackup")
-        letdir.mkdirs()
-        val file = File(letdir, "demo.pdf")
+
+        val file = File(folder, "demo.pdf")
 
         try {
             PdfWriter.getInstance(mDoc, FileOutputStream(file))
@@ -355,6 +285,92 @@ class main_activity2 : AppCompatActivity() {
 
         //print(contacts)
         contatsCountEdit.setText(count.toString())
+    }
+
+    @SuppressLint("Range")
+    fun ContactName(): ArrayList<String> {
+        val list: ArrayList<String> = ArrayList()
+
+        val cr = contentResolver
+        val cur = cr.query(
+            ContactsContract.Contacts.CONTENT_URI,
+            null, null, null, null
+        )
+
+        if (cur?.count ?: 0 > 0) {
+            while (cur != null && cur.moveToNext()) {
+
+                val contactNameFirst = cur.getString(
+                    cur.getColumnIndex(
+                        ContactsContract.Contacts.DISPLAY_NAME
+                    )
+                )
+                list.add(contactNameFirst)
+            }
+        }
+        return list
+    }
+    @SuppressLint("Range")
+    fun ContactPhone(): ArrayList<String> {
+        val list: ArrayList<String> = ArrayList()
+        val cr = contentResolver
+        val cur = cr.query(
+            ContactsContract.Contacts.CONTENT_URI,
+            null, null, null, null
+        )
+        if (cur?.count ?: 0 > 0) {
+            while (cur != null && cur.moveToNext()) {
+                val id = cur.getString(
+                    cur.getColumnIndex(ContactsContract.Contacts._ID)
+                )
+                if (cur.getInt(
+                        cur.getColumnIndex(
+                            ContactsContract.Contacts.HAS_PHONE_NUMBER
+                        )
+                    ) > 0
+                ) {
+                    val pCur = cr.query(
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        null,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                        arrayOf(id),
+                        null
+                    )
+                    while (pCur!!.moveToNext()) {
+                        val phoneNo = pCur.getString(
+                            pCur.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER
+                            )
+                        )
+                        list.add(phoneNo)
+                    }
+                    pCur.close()
+                }
+            }
+        }
+        cur?.close()
+
+        return list
+    }
+    fun getExcle(file:File){
+        var p1 = 0
+        for (n in ContactName()) {
+            headerRow = xls.createRow(row)
+            val cell = headerRow.createCell(0)
+            cell.setCellValue(n)
+            val cell1 = headerRow.createCell(1)
+            val p = ContactPhone()
+            cell1.setCellValue(p[p1])
+            p1++
+            row++
+
+        }
+        val outputStream = FileOutputStream(file)
+        xlb.write(outputStream)
+        if (outputStream != null) {
+            outputStream.flush()
+            outputStream.close()
+        }
     }
 }
 

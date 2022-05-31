@@ -64,30 +64,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     /////////////
     implementation 'com.android.support:multidex:1.0.3'
+    ////
+    implementation 'org.apache.poi:poi:3.17'
 
 
-/*
-
-    // Navigation Component dependencies
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
-    // ViweModel
-    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-
-    //LiveData
-    implementation"androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-
-    // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
-    //recycleview
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-
-    //material
-    implementation "com.google.android.material:material:$material_version"
-
-*/
 
 }
