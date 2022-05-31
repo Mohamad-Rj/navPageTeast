@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.inputmethodservice.Keyboard
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -56,7 +57,7 @@ class main_activity2 : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
 
         checkPer()
-       // getcontact_number()
+        getcontact_number()
 
         //// make a folder
        // val path = "/storage/emulated/0/ppp"
@@ -262,7 +263,7 @@ class main_activity2 : AppCompatActivity() {
             mDoc.addAuthor("aaaa")
             mDoc.add(Paragraph(contacts))
             mDoc.close()
-            Toast.makeText(this, "mf", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "succesfull", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
