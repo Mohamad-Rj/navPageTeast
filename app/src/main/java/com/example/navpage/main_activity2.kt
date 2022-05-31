@@ -9,6 +9,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
 import android.provider.ContactsContract
 import android.util.Log
 import android.view.Menu
@@ -26,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
+import kotlinx.android.synthetic.main.activity_main2.*
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
@@ -33,18 +35,70 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.jar.Manifest
 
-
 class main_activity2 : AppCompatActivity() {
 
     lateinit var displayName: TextView
     lateinit var status: TextView
     lateinit var auth: FirebaseAuth
     lateinit var database: FirebaseDatabase
+    var progressStatus = 0
+    var handler = Handler()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+
+
+        getcontact_number()
+
+
+        displayName = findViewById(R.id.user_name) as TextView
+        // val username2 = findViewById(R.id.user_name) as TextView
+        val username1 = intent.getStringExtra("userId")
+        displayName.setText(username1)
+
+        val progress = findViewById(R.id.test) as Button
+        val test_text = findViewById(R.id.test_textview) as TextView
+        val b = ""
+        progress.setOnClickListener {
+            progress.isEnabled = false
+            progressBar.progress = 0
+            progressStatus = 0
+            val filesToDownload = 100
+            // set up max value for progress bar
+            progressBar.max = filesToDownload
+
+            Thread(Runnable {
+                while (progressStatus < filesToDownload) {
+                    // update progress status
+                    progressStatus += 1
+
+                    // sleep the thread for 50 milliseconds
+                    Thread.sleep(50)
+
+                    // update the progress bar
+                    handler.post {
+                        progressBar.progress = progressStatus
+
+                        // calculate the percentage
+                        var percentage = ((progressStatus.toDouble()
+                                / filesToDownload) * 100).toInt()
+
+                        // update the text view
+                        test_text.text = " $percentage%"
+
+                        if (progressStatus == filesToDownload) {
+                            progress.isEnabled = true
+                        }
+                    }
+                }
+                progressBar.setProgress(0)
+
+            }).start()
+        }
+
+        test_text.setText("$b")
 
         val menu_btn = findViewById(R.id.menu_btn) as ImageView
         menu_btn.setOnClickListener {
@@ -109,8 +163,6 @@ class main_activity2 : AppCompatActivity() {
 
 
     }
-
-
 
 
     /*@SuppressLint("ResourceType")
@@ -235,7 +287,7 @@ class main_activity2 : AppCompatActivity() {
 
 
 
-        data class User(val displayName: String="", val status: String="")
+        data class User(val displayName: String = "", val status: String = "")
 
 
     }
@@ -243,7 +295,8 @@ class main_activity2 : AppCompatActivity() {
     fun savePdf(contacts: String) {
 
         val mDoc = Document()
-        val mFileName = SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
+        val mFileName =
+            SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(System.currentTimeMillis())
         // val mFilepath = Environment.getDataDirectory().toString()+ "/" +mFileName + "pdf"
         val path = Environment.getExternalStorageDirectory().absolutePath
         val letdir = File(path, "phonebackup")
@@ -260,22 +313,25 @@ class main_activity2 : AppCompatActivity() {
         } catch (e: Exception) {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
-        val contatsCountEdit = findViewById(R.id.ContactsCountEdir) as TextView
-        val backup_btn = findViewById(R.id.backup_button) as Button
-        backup_btn.setOnClickListener {
-            val cursor: Cursor = managedQuery(
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                null,
-                null,
-                null,
-                null
-            )
-            val count: Int = cursor.getCount()
-            println(count)
 
-            //print(contacts)
-            contatsCountEdit.setText(count.toString())
-        }
+        //  val backup_btn = findViewById(R.id.backup_button) as Button
+
+
+    }
+    fun getcontact_number(){
+        val contatsCountEdit = findViewById(R.id.ContactsCountEdir) as TextView
+        val cursor: Cursor = managedQuery(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+        val count: Int = cursor.getCount()
+        println(count)
+
+        //print(contacts)
+        contatsCountEdit.setText(count.toString())
     }
 }
 
