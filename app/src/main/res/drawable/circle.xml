@@ -3,7 +3,7 @@
     <!-- Gray shadow. -->
     <item android:left="3dp" android:top="5dp" >
         <shape android:shape="oval">
-            <solid android:color="@color/black" />
+            <solid android:color="#8AFFFFFF" />
         </shape>
     </item>
     <!-- White foreground. -->

@@ -20,7 +20,7 @@
         android:requestLegacyExternalStorage="true"
         android:theme="@style/Theme.NavPage">
         <activity
-            android:name=".main_activity2"
+            android:name=".sing_in"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
         </activity>
 
         <activity android:name="com.example.navpage.splash_page" />
-        <activity android:name="com.example.navpage.sing_in" />
+        <activity android:name="com.example.navpage.main_activity2" />
         <activity android:name="com.example.navpage.sing_up" />
     </application>
 

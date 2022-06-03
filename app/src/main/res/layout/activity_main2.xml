@@ -80,7 +80,7 @@
         android:layout_marginBottom="55dp"
         android:layout_marginStart="30dp"
         android:shadowColor="@color/black"
-        android:shadowRadius="6"
+        android:shadowRadius="5"
         android:layout_marginEnd="30dp"
         android:text="@string/seventy"
         android:textColor="#FDD835"
