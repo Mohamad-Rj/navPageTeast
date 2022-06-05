@@ -13,6 +13,8 @@ public class splash_page : AppCompatActivity() {
         Handler().postDelayed({
         val intent = Intent(this,sing_in::class.java )
             startActivity(intent )
+            finish()
         }, 2000)
+
     }
 }
