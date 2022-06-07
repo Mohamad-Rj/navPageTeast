@@ -41,14 +41,19 @@ class main_activity2 : AppCompatActivity() {
     lateinit var status: TextView
     lateinit var auth: FirebaseAuth
     lateinit var database: FirebaseDatabase
+    lateinit var contactForPdf: String
+    lateinit var headerRow: Row
+
+
     var progressStatus = 0
     var handler = Handler()
-
     val xlb = HSSFWorkbook()
     val xls = xlb.createSheet()
-    lateinit var headerRow: Row
     var row = 0
-
+ //   val phone_contact  = ContactPhone()
+  // val neme_contact  = ContactName()
+    var counterPdf = 0
+    val middelelement= ":"
 
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -268,8 +273,16 @@ class main_activity2 : AppCompatActivity() {
             Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
         }
 
-        //  val backup_btn = findViewById(R.id.backup_button) as Button
 
+        for(n in ContactPhone()){
+
+            val sum = arrayOf(ContactName()[counterPdf],middelelement,ContactPhone()[counterPdf])
+
+            counterPdf++
+            val separator = "-"
+            contactForPdf= sum.joinToString { separator }
+
+        }
 
     }
     fun getcontact_number(){
@@ -374,6 +387,7 @@ class main_activity2 : AppCompatActivity() {
         }
     }
 }
+
 
 
 
