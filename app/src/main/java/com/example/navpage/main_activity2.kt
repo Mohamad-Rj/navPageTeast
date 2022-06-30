@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.inputmethodservice.Keyboard
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -206,6 +205,34 @@ class main_activity2 : AppCompatActivity() {
                 popupMenu.show()
             }
         }
+
+        val get_backup = findViewById(R.id.backup_button)as Button
+        get_backup.setOnClickListener {
+
+
+        }
+
+    }
+
+    fun saveAsVcf(folder: File){
+        val file = File(folder, "demo.vcf")
+        val c: Cursor = this.getContentResolver().query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            arrayOf("sort_key", "data1"),
+            null,
+            null,
+            "sort_key ASC"
+        )!!
+        while (c.moveToNext()) {
+            val num = c.getString(1).replace("([- )(]|\\+98)".toRegex(), "")
+            TempContactHandler.addContact(c.getString(0), num)
+        }
+        c.close()
+
+
+        val creator = VCardCreator(file, TempContactHandler.tempContacts)
+        creator.createVCFFile()
+
 
     }
 
