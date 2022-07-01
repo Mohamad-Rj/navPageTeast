@@ -2,9 +2,11 @@ package com.example.navpage
 
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -23,6 +25,8 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.itextpdf.text.Document
 import com.itextpdf.text.Paragraph
 import com.itextpdf.text.pdf.PdfWriter
@@ -209,6 +213,8 @@ class main_activity2 : AppCompatActivity() {
         val get_backup = findViewById(R.id.backup_button)as Button
         get_backup.setOnClickListener {
 
+            saveAsVcf(letdir)
+
 
         }
 
@@ -233,6 +239,33 @@ class main_activity2 : AppCompatActivity() {
         val creator = VCardCreator(file, TempContactHandler.tempContacts)
         creator.createVCFFile()
 
+        Handler().postDelayed({
+            val uriFile = Uri.fromFile(file)
+            uploadFile(uriFile)
+        }, 1000)
+
+
+    }
+    fun uploadFile(filePathUri:Uri){
+
+        if (filePathUri!=null){
+            var pd = ProgressDialog(this)
+            pd.setTitle("Uploading")
+            pd.show()
+            var fileForeUpload :StorageReference = FirebaseStorage.getInstance().reference.child("VCF's/contacts.vcf")
+            fileForeUpload.putFile(filePathUri).addOnSuccessListener { p0 ->
+                pd.dismiss()
+                Toast.makeText(this,"Done!!",Toast.LENGTH_LONG).show()
+            }
+                .addOnFailureListener{p0 ->
+                    pd.dismiss()
+                    Toast.makeText(this,p0.message,Toast.LENGTH_LONG).show()
+                }
+                .addOnProgressListener { p0 ->
+                    var progress:Double = (100.0 * p0.bytesTransferred)
+                    pd.setMessage("Saved ${progress.toInt()}%")
+                }
+        }
 
     }
 
