@@ -14,6 +14,7 @@ import android.os.Handler
 import android.provider.ContactsContract
 import android.util.Log
 import android.view.MenuItem
+import android.webkit.MimeTypeMap
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class main_activity2 : AppCompatActivity() {
 
@@ -218,8 +220,43 @@ class main_activity2 : AppCompatActivity() {
 
         }
 
+        val restoreBtn = findViewById(R.id.Restore_button)as Button
+        restoreBtn.setOnClickListener {
+            downloadFile(letdir)
+        }
+
     }
 
+    private fun downloadFile(folder: File) {
+        val storage = FirebaseStorage.getInstance()
+        val storageRef = storage.getReferenceFromUrl("gs://backup-contact-148ea.appspot.com/VCF's")
+        val islandRef = storageRef.child("contacts.vcf")
+
+        val localFile: File = File(folder, "restore.vcf")
+        islandRef.getFile(localFile).addOnSuccessListener {
+            Log.e("firebase ", ";local tem file created  created $localFile")
+            //  updateDb(timestamp,localFile.toString(),position);
+        }.addOnFailureListener { exception ->
+            Log.e(
+                "firebase ",
+                ";local tem file not created  created $exception"
+            )
+        }
+
+        restoreContact(localFile)
+    }
+
+    fun restoreContact(folder: File){
+        val intent = Intent()
+
+        val mime = MimeTypeMap.getSingleton()
+        val tmptype = mime.getMimeTypeFromExtension("vcf")
+        //val file = File(Environment.getExternalStorageDirectory().toString() + "/sample.vcf")
+        Log.d("aaa", folder.absolutePath.toString())
+
+        intent.setDataAndType(Uri.fromFile(folder), tmptype)
+        startActivity(intent)
+    }
     fun saveAsVcf(folder: File){
         val file = File(folder, "demo.vcf")
         val c: Cursor = this.getContentResolver().query(
