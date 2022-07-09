@@ -75,6 +75,8 @@ class sing_up : AppCompatActivity() {
 //                    }
 
 
+                    }else{
+                        Log.d("bbb", task.exception.toString())
                     }
                 }
         }

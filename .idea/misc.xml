@@ -79,9 +79,13 @@
         <entry key="..\:/project/navPage/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
         <entry key="..\:/project/navPage/app/src/main/res/menu/menu_popup.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1635" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.183" />
         <entry key="app/src/main/res/drawable/ic_baseline_login_24.xml" value="0.1635" />
         <entry key="app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1635" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/layout/sing_in_page.xml" value="0.33177083333333335" />
+        <entry key="app/src/main/res/layout/sing_up.xml" value="0.33177083333333335" />
+        <entry key="app/src/main/res/layout/splash_page.xml" value="0.33177083333333335" />
         <entry key="app/src/main/res/menu/menu_popup.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1635" />
       </map>

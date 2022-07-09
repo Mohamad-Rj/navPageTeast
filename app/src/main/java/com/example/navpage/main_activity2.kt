@@ -3,6 +3,7 @@ package com.example.navpage
 
 import android.annotation.SuppressLint
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
@@ -12,6 +13,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.provider.ContactsContract
+import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.MenuItem
 import android.webkit.MimeTypeMap
@@ -21,10 +23,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -46,6 +45,7 @@ class main_activity2 : AppCompatActivity() {
     lateinit var status: TextView
     lateinit var auth: FirebaseAuth
     lateinit var database: FirebaseDatabase
+    var databaseReference: DatabaseReference? = null
     lateinit var contactForPdf: String
     lateinit var headerRow: Row
 
@@ -98,6 +98,10 @@ class main_activity2 : AppCompatActivity() {
 
         FirebaseAuth.getInstance().also { it.also { auth = it } }
         database = FirebaseDatabase.getInstance()
+
+        // dev ID
+        val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val IDD =telephonyManager.deviceId
 
 
 
@@ -215,22 +219,23 @@ class main_activity2 : AppCompatActivity() {
         val get_backup = findViewById(R.id.backup_button)as Button
         get_backup.setOnClickListener {
 
-            saveAsVcf(letdir)
+            saveAsVcf(letdir,IDD)
 
 
         }
 
         val restoreBtn = findViewById(R.id.Restore_button)as Button
         restoreBtn.setOnClickListener {
-            downloadFile(letdir)
+
+            downloadFile(letdir, IDD)
         }
 
     }
 
-    private fun downloadFile(folder: File) {
+    private fun downloadFile(folder: File,id :String) {
         val storage = FirebaseStorage.getInstance()
-        val storageRef = storage.getReferenceFromUrl("gs://backup-contact-148ea.appspot.com/VCF's")
-        val islandRef = storageRef.child("contacts.vcf")
+        val storageRef = storage.getReferenceFromUrl("gs://backup-72095.appspot.com/VCF's")
+        val islandRef = storageRef.child("${id}.vcf")
 
         val localFile: File = File(folder, "restore.vcf")
         islandRef.getFile(localFile).addOnSuccessListener {
@@ -257,7 +262,8 @@ class main_activity2 : AppCompatActivity() {
         intent.setDataAndType(Uri.fromFile(folder), tmptype)
         startActivity(intent)
     }
-    fun saveAsVcf(folder: File){
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun saveAsVcf(folder: File,IDD:String){
         val file = File(folder, "demo.vcf")
         val c: Cursor = this.getContentResolver().query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
@@ -278,18 +284,22 @@ class main_activity2 : AppCompatActivity() {
 
         Handler().postDelayed({
             val uriFile = Uri.fromFile(file)
-            uploadFile(uriFile)
+
+            uploadFile(uriFile, IDD)
         }, 1000)
 
 
     }
-    fun uploadFile(filePathUri:Uri){
+
+
+    fun uploadFile(filePathUri:Uri,Id:String){
 
         if (filePathUri!=null){
             var pd = ProgressDialog(this)
             pd.setTitle("Uploading")
             pd.show()
-            var fileForeUpload :StorageReference = FirebaseStorage.getInstance().reference.child("VCF's/contacts.vcf")
+
+            var fileForeUpload :StorageReference = FirebaseStorage.getInstance().reference.child("VCF's/${Id}.vcf")
             fileForeUpload.putFile(filePathUri).addOnSuccessListener { p0 ->
                 pd.dismiss()
                 Toast.makeText(this,"Done!!",Toast.LENGTH_LONG).show()
@@ -312,12 +322,14 @@ class main_activity2 : AppCompatActivity() {
             != PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.WRITE_CONTACTS)
+            != PackageManager.PERMISSION_GRANTED|| checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE)
             != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(
                     android.Manifest.permission.READ_CONTACTS,
+                    android.Manifest.permission.READ_PHONE_STATE,
                     android.Manifest.permission.WRITE_CONTACTS,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -358,7 +370,7 @@ class main_activity2 : AppCompatActivity() {
 
 
 
-        data class User(val displayName: String = "", val status: String = "")
+       // data class User(val displayName: String = "", val status: String = "")
 
 
     }

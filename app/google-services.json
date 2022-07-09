@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "443791828044",
-    "project_id": "backup-contact-148ea",
-    "storage_bucket": "backup-contact-148ea.appspot.com"
+    "project_number": "409355979994",
+    "project_id": "backup-72095",
+    "storage_bucket": "backup-72095.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:443791828044:android:a6247874614394095800e9",
+        "mobilesdk_app_id": "1:409355979994:android:bc93e866df4ce9ce5869e3",
         "android_client_info": {
           "package_name": "com.example.navpage"
         }
       },
       "oauth_client": [
         {
-          "client_id": "443791828044-1f67tc4tjb2clmvin37fuq451u9tlale.apps.googleusercontent.com",
+          "client_id": "409355979994-qhj2rubc79ed82s229i29fhf4np9n2le.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDe0tlOa6uv1usCNmFfEVl0EGXa5RK0FJo"
+          "current_key": "AIzaSyDkDV4nMntPIP4E8RP7NqmHQnF2cpCnxXs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "443791828044-1f67tc4tjb2clmvin37fuq451u9tlale.apps.googleusercontent.com",
+              "client_id": "409355979994-qhj2rubc79ed82s229i29fhf4np9n2le.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
