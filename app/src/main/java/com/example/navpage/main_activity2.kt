@@ -55,13 +55,11 @@ class main_activity2 : AppCompatActivity() {
     val xlb = HSSFWorkbook()
     val xls = xlb.createSheet()
     var row = 0
-
-    //   val phone_contact  = ContactPhone()
-    // val neme_contact  = ContactName()
     var counterPdf = 0
     val middelelement = ":"
 
 
+    @SuppressLint("NewApi")
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +69,7 @@ class main_activity2 : AppCompatActivity() {
         getcontact_number()
         //// make a folder
         // val path = "/storage/emulated/0/ppp"
-        val path = Environment.getExternalStorageDirectory().absolutePath
+        val path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).absolutePath
         val letdir = File(path, "phonebackup")
         //  val letdir = File(path, "phonebackup")
         if (!letdir.exists()) {
@@ -100,8 +98,7 @@ class main_activity2 : AppCompatActivity() {
         database = FirebaseDatabase.getInstance()
 
         // dev ID
-        val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-        val IDD =telephonyManager.deviceId
+        val IDD =getUserEmail()
 
 
 
@@ -199,6 +196,8 @@ class main_activity2 : AppCompatActivity() {
 
                     when (item!!.itemId) {
                         R.id.menu_logout -> {
+
+                            auth.signOut()
                             val Intent = Intent(this, sing_in::class.java)
                             startActivity(Intent)
                             finish()
@@ -322,14 +321,12 @@ class main_activity2 : AppCompatActivity() {
             != PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(
                 android.Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(android.Manifest.permission.WRITE_CONTACTS)
-            != PackageManager.PERMISSION_GRANTED|| checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE)
             != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(
                     android.Manifest.permission.READ_CONTACTS,
-                    android.Manifest.permission.READ_PHONE_STATE,
                     android.Manifest.permission.WRITE_CONTACTS,
                     android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -341,12 +338,6 @@ class main_activity2 : AppCompatActivity() {
         }
     }
 
-
-    private fun isLogin() {
-        val intent = Intent(this, sing_up::class.java)
-
-        auth.currentUser?.uid?.let { loadData(it) } ?: startActivity(intent)
-    }
 
     private fun loadData(userId: String) {
         val dataListener = object : ValueEventListener {
@@ -420,9 +411,7 @@ class main_activity2 : AppCompatActivity() {
             null
         )
         val count: Int = cursor.getCount()
-        println(count)
 
-        //print(contacts)
         contatsCountEdit.setText(count.toString())
     }
 
@@ -439,14 +428,35 @@ class main_activity2 : AppCompatActivity() {
 
         if (cur?.count ?: 0 > 0) {
             while (cur != null && cur.moveToNext()) {
-
-                val contactNameFirst = cur.getString(
-                    cur.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME
-                    )
+                val id = cur.getString(
+                    cur.getColumnIndex(ContactsContract.Contacts._ID)
                 )
-                list.add(contactNameFirst)
+                if (cur.getInt(
+                        cur.getColumnIndex(
+                            ContactsContract.Contacts.HAS_PHONE_NUMBER
+                        )
+                    ) > 0
+                ) {
+                    val pCur = cr.query(
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        null,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                        arrayOf(id),
+                        null
+                    )
+                    while (pCur!!.moveToNext()) {
+                        val contactNameFirst = cur.getString(
+                            cur.getColumnIndex(
+                                ContactsContract.Contacts.DISPLAY_NAME
+                            )
+                        )
+                        list.add(contactNameFirst)
+                    }
+                    pCur.close()
+                }
             }
+
+
         }
         return list
     }
@@ -495,24 +505,44 @@ class main_activity2 : AppCompatActivity() {
     }
 
     fun getExcle(file: File) {
-        var p1 = 0
-        for (n in ContactName()) {
-            headerRow = xls.createRow(row)
-            val cell = headerRow.createCell(0)
-            cell.setCellValue(n)
-            val cell1 = headerRow.createCell(1)
+        try {
+            var p1 = 0
             val p = ContactPhone()
-            cell1.setCellValue(p[p1])
-            p1++
-            row++
 
+                for (n in ContactName()) {
+                    headerRow = xls.createRow(row)
+                    val cell = headerRow.createCell(0)
+                    cell.setCellValue(n)
+                    val cell1 = headerRow.createCell(1)
+                    cell1.setCellValue(p[p1])
+                    p1++
+                    row++
+
+                }
+                val outputStream = FileOutputStream(file)
+                xlb.write(outputStream)
+                if (outputStream != null) {
+                    outputStream.flush()
+                    outputStream.close()
+                }
+
+
+        }catch (e : Exception){
+            Log.d("mmm", e.message.toString())
         }
-        val outputStream = FileOutputStream(file)
-        xlb.write(outputStream)
-        if (outputStream != null) {
-            outputStream.flush()
-            outputStream.close()
+
+    }
+
+    fun getUserEmail() : String{
+        var userEmail =""
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            userEmail= user.email.toString()
+        } else {
+            // No user is signed in
         }
+        return userEmail
+
     }
 }
 

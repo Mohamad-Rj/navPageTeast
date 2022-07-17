@@ -54,10 +54,8 @@ class sing_up : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val userId = auth.currentUser?.uid
                         val registerRef = userId?.let { it1 -> dbRef.child("user").child(it1) }
-                      //  val user = User(displayName.text.toString())
                        val user = FirebaseAuth.getInstance().currentUser
 
-                       // val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(displayName.text.toString()).build()
                         val profileUpdates = userProfileChangeRequest { displayName = displayNamee.text.toString() }
                         user!!.updateProfile(profileUpdates).addOnCompleteListener{task -> if (task.isSuccessful){
                             Log.d("aaaa", "change username")} }
@@ -83,16 +81,3 @@ class sing_up : AppCompatActivity() {
     }
 }
 
-
-
-/*
-val username = findViewById(R.id.ContactsCountEdir) as TextView
-username.setText(toString())*/
-
-/*
-fun getSet(view: TextView){
-    val  user =findViewById(R.id.user_name) as TextView
-    val editText = findViewById(R.id.edit_text_name1) as EditText
-    val msg = editText.text.toString()
-    msg.toSet()
-}*/

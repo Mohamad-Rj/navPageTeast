@@ -3,31 +3,36 @@ package com.example.navpage
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.sing_in_page.*
 
 
 class sing_in : AppCompatActivity() {
+
+    lateinit var auth: FirebaseAuth
+    var mAuthListener: AuthStateListener? = null
+    lateinit var loginButton: Button
+    lateinit var email: EditText
+    lateinit var password: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sing_in_page)
 
-        lateinit var auth: FirebaseAuth
-        lateinit var loginButton: Button
+
+
+
         auth = Firebase.auth
-        @SuppressLint("StaticFieldLeak")
-        lateinit var email: EditText
-        lateinit var password: EditText
-        lateinit var registerButtton: Button
-        lateinit var emailadress : EditText
+       // @SuppressLint("StaticFieldLeak")
+
 
         val singInn = findViewById<TextView>(R.id.sing_up_textview)
         singInn.setOnClickListener {
@@ -75,47 +80,17 @@ class sing_in : AppCompatActivity() {
 
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        if (auth.currentUser != null){
+            val intent = Intent(this,main_activity2::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+
+
 }
 
-/*
-
-            auth = FirebaseAuth.getInstance()
-            auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString())
-                .addOnCompleteListener { task: Task<AuthResult> ->
-                    val intentToMain = Intent(this, main_activity2::class.java)
-                    startActivity(intentToMain)
-                }*/
-
-
-
-// Get auth credentials from the user for re-authentication. The example below shows
-// email and password credentials but there are multiple possible providers,
-// such as GoogleAuthProvider or FacebookAuthProvider.
-
-//            auth.signInWithEmailAndPassword(email.toString(),
-//                password.toString()
-//            ).addOnCompleteListener { task ->
-//                if(task.isSuccessful){
-//                    val intent= Intent(this,main_activity2::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
-//            }.addOnFailureListener { exception ->
-//                Toast.makeText(applicationContext,exception.localizedMessage, Toast.LENGTH_LONG).show()
-//            }
-
-/*        val user = Firebase.auth.currentUser!!
-        val credential = EmailAuthProvider
-            .getCredential("user@example.com", "password1234")
-               user.reauthenticate(credential)
-            .addOnCompleteListener { Log.d(TAG, "User re-authenticated.") }
-
-*/
-
-//val name = findViewById(R.id.edit_text_name1) as EditText
-//
-//val intent = Intent()
-//val message = name.text.toString()
-//intent.putExtra("id",message)
-//setResult(Activity.RESULT_OK, intent)
-//finish()
